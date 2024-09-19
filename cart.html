@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shopping-cart</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body><!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shopping Cart</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="cart">
+            <h1>Shopping Cart</h1>
+            <div class="cart-item">
+                <span class="item-name">Item 1</span>
+                <span class="item-price">KES 1000</span>
+                <div class="quantity-controls">
+                    <button class="btn-minus">-</button>
+                    <span class="item-quantity">1</span>
+                    <button class="btn-plus">+</button>
+                </div>
+                <button class="btn-delete">Delete</button>
+                <button class="btn-like">❤️</button>
+            </div>
+    
+            <div class="cart-item">
+                <span class="item-name">Item 2</span>
+                <span class="item-price">KES 2000</span>
+                <div class="quantity-controls">
+                    <button class="btn-minus">-</button>
+                    <span class="item-quantity">1</span>
+                    <button class="btn-plus">+</button>
+                </div>
+                <button class="btn-delete">Delete</button>
+                <button class="btn-like">❤️</button>
+            </div>
+    
+            <div class="cart-item">
+                <span class="item-name">Item 3</span>
+                <span class="item-price">KES 1500</span>
+                <div class="quantity-controls">
+                    <button class="btn-minus">-</button>
+                    <span class="item-quantity">1</span>
+                    <button class="btn-plus">+</button>
+                </div>
+                <button class="btn-delete">Delete</button>
+                <button class="btn-like">❤️</button>
+            </div>
+    
+            <h2>Total Price: <span class="total-price">KES 0.00</span></h2>
+        </div>
+    
+        
+    </body>
+    </html>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        let cartItems = document.querySelectorAll('.cart-item');
+        let totalPriceElement = document.querySelector('.total-price');
+    
+        
+        function updateTotalPrice() {
+            let total = 0;
+            cartItems = document.querySelectorAll('.cart-item'); 
+            for (let i = 0; i < cartItems.length; i++) {
+                let price = parseFloat(cartItems[i].querySelector('.item-price').textContent.replace('KES ', ''));
+                let quantity = parseInt(cartItems[i].querySelector('.item-quantity').textContent);
+                total += price * quantity;
+            }
+            totalPriceElement.textContent = 'KES ' + total.toFixed(2);
+        }
+    
+       
+        for (let i = 0; i < cartItems.length; i++) {
+            let quantityElement = cartItems[i].querySelector('.item-quantity');
+            let plusButton = cartItems[i].querySelector('.btn-plus');
+            let minusButton = cartItems[i].querySelector('.btn-minus');
+            let deleteButton = cartItems[i].querySelector('.btn-delete');
+            let likeButton = cartItems[i].querySelector('.btn-like');
+    
+           
+            plusButton.addEventListener('click', function() {
+                quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
+                updateTotalPrice();
+            });
+    
+            
+            minusButton.addEventListener('click', function() {
+                if (quantityElement.textContent > 1) {
+                    quantityElement.textContent = parseInt(quantityElement.textContent) - 1;
+                    updateTotalPrice();
+                }
+            });
+    
+           
+            deleteButton.addEventListener('click', function() {
+                cartItems[i].remove();
+                updateTotalPrice();
+            });
+    
+           
+            likeButton.addEventListener('click', function() {
+                likeButton.classList.toggle('liked');
+            });
+        }
+    
+       
+        updateTotalPrice();
+    });
+    
+        
+    </script>
+</body>
+</html>
